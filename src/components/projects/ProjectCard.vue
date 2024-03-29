@@ -1,7 +1,13 @@
 <script>
 export default {
     name: 'ProjectCard',
-    props: { project: Object }
+    props: { project: Object },
+    methods: {
+        abstract() {
+            const abstract = this.project.content.slice(0, 300);
+            return abstract + '...';
+        }
+    }
 
 
 };
@@ -16,7 +22,7 @@ export default {
                     <h5 class="card-title">{{ project.title }}</h5>
                 </div>
                 <div class="card-body">
-                    <p>{{ project.content }}</p>
+                    <p>{{ abstract() }}</p>
                 </div>
                 <div class="card-footer">
                     <!-- <address class="card-text">{{ project.content }}</address> -->
