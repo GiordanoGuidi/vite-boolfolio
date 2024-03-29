@@ -10,7 +10,7 @@ export default {
 </script>
 
 <template>
-    <div class="row">
+    <div class="row mt-5 gap-3">
         <div class="col-12" v-for="project in projects" :key="project.id">
             <ProjectCard :project="project" />
         </div>
