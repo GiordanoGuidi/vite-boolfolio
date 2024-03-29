@@ -2,23 +2,25 @@
 export default {
     name: 'ProjectCard',
     props: { project: Object },
-    methods: {
+    computed: {
         abstract() {
             const abstract = this.project.content.slice(0, 300);
             return abstract + '...';
         },
 
         formattedDate() {
-            let dateTime = this.project.create_at;
-            dateTime = new Date();
+            let dateTime = new Date(this.project.created_at);
             const year = dateTime.getFullYear()
-            const month = dateTime.getMonth() + 1;
+            let month = dateTime.getMonth() + 1;
             const day = dateTime.getDate();
-            const hours = dateTime.getHours();
-            const minutes = dateTime.getMinutes();
-            dateTime = `${day}/${month}/${year} alle: ${hours}:${minutes}`
+            let hour = dateTime.getHours();
+            let minute = dateTime.getMinutes();
 
-            return dateTime
+            if (day < 10) day = '0' + day;
+            if (month < 10) month = '0' + month;
+            if (minute < 10) minute = '0' + minute;
+
+            return `${day}/${month}/${year} alle: ${hour}:${minute}`
 
         }
     }
@@ -36,11 +38,11 @@ export default {
                     <h5 class="card-title">{{ project.title }}</h5>
                 </div>
                 <div class="card-body">
-                    <p>{{ abstract() }}</p>
+                    <p>{{ abstract }}</p>
                 </div>
                 <div class="card-footer">
                     <!-- <address class="card-text">{{ project.content }}</address> -->
-                    <small>Pubblicato il: {{ formattedDate() }}</small>
+                    <small>Pubblicato il: {{ formattedDate }}</small>
                 </div>
             </div>
         </div>
