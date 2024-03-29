@@ -6,6 +6,20 @@ export default {
         abstract() {
             const abstract = this.project.content.slice(0, 300);
             return abstract + '...';
+        },
+
+        formattedDate() {
+            let dateTime = this.project.create_at;
+            dateTime = new Date();
+            const year = dateTime.getFullYear()
+            const month = dateTime.getMonth() + 1;
+            const day = dateTime.getDate();
+            const hours = dateTime.getHours();
+            const minutes = dateTime.getMinutes();
+            dateTime = `${day}/${month}/${year} alle: ${hours}:${minutes}`
+
+            return dateTime
+
         }
     }
 
@@ -26,7 +40,7 @@ export default {
                 </div>
                 <div class="card-footer">
                     <!-- <address class="card-text">{{ project.content }}</address> -->
-                    <small>Pubblicato il: {{ project.created_at }}</small>
+                    <small>Pubblicato il: {{ formattedDate() }}</small>
                 </div>
             </div>
         </div>
