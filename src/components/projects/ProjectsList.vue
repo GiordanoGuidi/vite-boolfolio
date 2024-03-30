@@ -3,9 +3,7 @@ import ProjectCard from './ProjectCard.vue';
 export default {
     name: 'ProjectsList',
     components: { ProjectCard },
-    props: { projects: Array }
-
-
+    props: { projects: Array },
 };
 </script>
 

@@ -15,17 +15,12 @@ export default {
             const day = dateTime.getDate();
             let hour = dateTime.getHours();
             let minute = dateTime.getMinutes();
-
             if (day < 10) day = '0' + day;
             if (month < 10) month = '0' + month;
             if (minute < 10) minute = '0' + minute;
-
             return `${day}/${month}/${year} alle: ${hour}:${minute}`
-
         }
     }
-
-
 };
 </script>
 
@@ -38,6 +33,7 @@ export default {
                     <h5 class="card-title">{{ project.title }}</h5>
                 </div>
                 <div class="card-body">
+                    <img v-if="project.image" :src="project.image" class="float-start img-fluid" :alt="project.title">
                     <p>{{ abstract }}</p>
                 </div>
                 <div class="card-footer">
