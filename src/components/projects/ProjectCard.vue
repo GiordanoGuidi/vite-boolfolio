@@ -1,7 +1,10 @@
 <script>
 export default {
     name: 'ProjectCard',
-    props: { project: Object },
+    props: { project: Object, isDetail: Boolean },
+    data: () => ({
+        projectCard: true
+    }),
     computed: {
         abstract() {
             const abstract = this.project.content.slice(0, 300);
@@ -31,7 +34,8 @@ export default {
             <div class="col-md-8">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title">{{ project.title }}</h5>
-                    <RouterLink class="btn btn-primary" :to="{ name: 'project-detail', params: { id: project.id } }">
+                    <RouterLink v-if="isDetail" class="btn btn-primary"
+                        :to="{ name: 'project-detail', params: { id: project.id } }">
                         Vedi
                     </RouterLink>
                 </div>
