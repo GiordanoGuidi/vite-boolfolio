@@ -1,24 +1,34 @@
 <script>
+import ProjectCard from '../components/projects/ProjectCard.vue';
+import axios from 'axios';
+import AppLoader from '../components/AppLoader.vue';
+const deafaultEndpoint = 'http://localhost:8000/api/projects';
 export default {
     name: 'ProjectDetail',
-};
+    components: { ProjectCard, AppLoader },
+    data: () => ({
+        project: null,
+        isLoading: false,
+        // isAlertOpen: false,
+    }),
+    methods: {
+        getProject() {
+            this.isLoading = true;
+            axios.get(`${deafaultEndpoint}/1`)
+                .then(res => { this.project = res.data; })
+                .catch(err => { console.error(err.message); this.isAlertOpen = true; })
+                .then(() => { this.isLoading = false; })
+        }
+    },
+    created() {
+        this.getProject();
+    }
+}
 </script>
 
 <template>
-    <!-- <div class="col-md-8">
-        <div class="card-header">
-            <h5 class="card-title">{{ project.title }}</h5>
-        </div>
-        <div class="card-body">
-            <img v-if="project.image" :src="project.image" class="float-start img-fluid" :alt="project.title">
-            <p>{{ abstract }}</p>
-        </div>
-        <div class="card-footer">
-            <address class="card-text">{{ project.content }}</address>
-            <small>Pubblicato il: {{ formattedDate }}</small>
-        </div>
-    </div> -->
-    <h2>Ciao</h2>
+    <AppLoader v-if="isLoading && !project" />
+    <ProjectCard v-if="!isLoading && project" :project="project" />
 </template>
 
 <style></style>

@@ -29,8 +29,11 @@ export default {
     <div class="card my-3">
         <div class="row g-0">
             <div class="col-md-8">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title">{{ project.title }}</h5>
+                    <RouterLink class="btn btn-primary" :to="{ name: 'project-detail', params: { id: project.id } }">
+                        Vedi
+                    </RouterLink>
                 </div>
                 <div class="card-body">
                     <img v-if="project.image" :src="project.image" class="float-start img-fluid" :alt="project.title">
