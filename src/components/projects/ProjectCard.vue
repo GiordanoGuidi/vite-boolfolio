@@ -32,7 +32,7 @@ export default {
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title">{{ project.title }}</h5>
                     <RouterLink v-if="!isDetail" class="btn btn-primary"
-                        :to="{ name: 'project-detail', params: { id: project.id } }">
+                        :to="{ name: 'project-detail', params: { slug: project.slug } }">
                         Vedi
                     </RouterLink>
                 </div>

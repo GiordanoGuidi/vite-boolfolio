@@ -14,7 +14,7 @@ export default {
     methods: {
         getProject() {
             this.isLoading = true;
-            axios.get(`${deafaultEndpoint}/${this.$route.params.id}`)
+            axios.get(`${deafaultEndpoint}/${this.$route.params.slug}`)
                 .then(res => { this.project = res.data; })
                 .catch(err => { console.error(err.message); this.isAlertOpen = true; })
                 .then(() => { this.isLoading = false; })

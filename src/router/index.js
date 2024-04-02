@@ -8,7 +8,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', name: 'home', component: HomePage },
-        { path: '/projects/:id', name: 'project-detail', component: ProjectDetail }
+        { path: '/projects/:slug', name: 'project-detail', component: ProjectDetail }
         //#Aggiungi pagina Not Found
     ]
 });
