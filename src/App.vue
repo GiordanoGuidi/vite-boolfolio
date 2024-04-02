@@ -1,9 +1,8 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
-import HomePage from './pages/HomePage.vue';
 export default {
   name: 'Boolfolio',
-  components: { AppHeader, HomePage },
+  components: { AppHeader },
 };
 </script>
 
@@ -11,7 +10,7 @@ export default {
   <AppHeader />
   <main>
     <div class="container pt-4">
-      <HomePage />
+      <RouterView />
     </div>
   </main>
 </template>
