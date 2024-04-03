@@ -42,9 +42,21 @@ export default {
                     <img v-if="project.image" :src="project.image" class="float-start img-fluid" :alt="project.title">
                     <p>{{ !isDetail ? abstract : project.content }}</p>
                 </div>
-                <div class="card-footer">
-                    <!-- <address class="card-text">{{ project.content }}</address> -->
+                <div class="card-footer d-flex justify-content-between">
+                    <small>{{ project.user ? project.user.name : 'Anonimo' }}</small>
                     <small>Pubblicato il: {{ formattedDate }}</small>
+
+                    <p v-if="project.type">Tipo:
+                        <span class="badge" :style="{ backgroundColor: project.type.color }">{{ project.type.label
+                            }}</span>
+                    </p>
+                    <div>
+                        <p v-if="project.technologies">Tecnologie:
+                            <span v-for="technology in project.technologies"
+                                :class="'badge rounded-pill text-bg-' + technology.color">
+                                {{ technology.label }}</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

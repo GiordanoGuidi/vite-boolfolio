@@ -8,6 +8,7 @@ export default {
     components: { ProjectCard, },
     data: () => ({
         project: null,
+        store,
         // isAlertOpen: false,
     }),
     methods: {
