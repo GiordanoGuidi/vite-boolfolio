@@ -1,23 +1,22 @@
 <script>
+import { store } from '../data/store';
 import ProjectCard from '../components/projects/ProjectCard.vue';
 import axios from 'axios';
-import AppLoader from '../components/AppLoader.vue';
 const deafaultEndpoint = 'http://localhost:8000/api/projects';
 export default {
     name: 'ProjectDetail',
-    components: { ProjectCard, AppLoader },
+    components: { ProjectCard, },
     data: () => ({
         project: null,
-        isLoading: false,
         // isAlertOpen: false,
     }),
     methods: {
         getProject() {
-            this.isLoading = true;
+            store.isLoading = true;
             axios.get(`${deafaultEndpoint}/${this.$route.params.slug}`)
                 .then(res => { this.project = res.data; })
                 .catch(err => { console.error(err.message); this.isAlertOpen = true; })
-                .then(() => { this.isLoading = false; })
+                .then(() => { store.isLoading = false; })
         }
     },
     created() {
@@ -27,8 +26,7 @@ export default {
 </script>
 
 <template>
-    <AppLoader v-if="isLoading && !project" />
-    <ProjectCard v-if="!isLoading && project" :project="project" :isDetail="true" />
+    <ProjectCard v-if="!store.isLoading && project" :project="project" :isDetail="true" />
 </template>
 
 <style></style>
