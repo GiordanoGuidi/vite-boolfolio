@@ -16,7 +16,7 @@ const router = createRouter({
         { path: '/projects/:slug', name: 'project-detail', component: ProjectDetail },
         { path: '/not-found', name: 'not-found', component: NotFoundPage },
         { path: '/:pathMatch(.*)*', redirect: 'not-found' },
-        { path: '/type/:slug/projects', name: 'type-projects-page', component: TypeProjectsPage },
+        { path: '/types/:slug/projects', name: 'type-projects-page', component: TypeProjectsPage },
     ]
 });
 export { router };

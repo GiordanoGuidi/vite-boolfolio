@@ -1,4 +1,6 @@
 <script>
+import { RouterLink } from 'vue-router';
+
 export default {
     name: 'ProjectCard',
     props: { project: Object, isDetail: Boolean },
@@ -47,8 +49,10 @@ export default {
                     <small>Pubblicato il: {{ formattedDate }}</small>
 
                     <p v-if="project.type">Tipo:
-                        <span class="badge" :style="{ backgroundColor: project.type.color }">{{ project.type.label
-                            }}</span>
+                        <RouterLink :to="{ name: 'type-projects-page', params: { slug: project.type.slug } }"><span
+                                class="badge" :style="{ backgroundColor: project.type.color }">{{
+                        project.type.label
+                    }}</span></RouterLink>
                     </p>
                     <div>
                         <p v-if="project.technologies.length">Tecnologie:
