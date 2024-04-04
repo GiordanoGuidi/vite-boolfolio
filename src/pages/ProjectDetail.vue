@@ -16,7 +16,11 @@ export default {
             store.isLoading = true;
             axios.get(`${deafaultEndpoint}/${this.$route.params.slug}`)
                 .then(res => { this.project = res.data; })
-                .catch(err => { console.error(err.message); this.isAlertOpen = true; })
+                .catch(err => {
+                    console.error(err.message)
+                    this.$router.push({ name: 'not-found' })
+                    this.isAlertOpen = true;
+                })
                 .then(() => { store.isLoading = false; })
         }
     },

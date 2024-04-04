@@ -51,9 +51,9 @@ export default {
                             }}</span>
                     </p>
                     <div>
-                        <p v-if="project.technologies">Tecnologie:
+                        <p v-if="project.technologies.length">Tecnologie:
                             <span v-for="technology in project.technologies"
-                                :class="'badge rounded-pill text-bg-' + technology.color">
+                                :class="'badge rounded-pill me-2 text-bg-' + technology.color">
                                 {{ technology.label }}</span>
                         </p>
                     </div>
