@@ -1,25 +1,31 @@
 <script>
 import axios from 'axios';
 import { store } from '../data/store';
-const baseUri = 'http://localhost:8000/api/';
+import ProjectsList from '../components/projects/ProjectsList.vue';
+const baseUri = 'http://localhost:8000/api';
 export default {
     name: 'TypeProjectPage',
+    components: { ProjectsList },
     data: () => ({
         store,
         projects: [],
+        typeLabel: '',
     }),
-    methods: {
-        fetchPosts() {
-            axios.get(`${baseUri}/${this.$route.params.slug}`)
-                .then(res => {
-                    this.projects = res.data;
 
+    methods: {
+        fetchProjects() {
+            store.isLoading = true;
+            axios.get(`${baseUri}/types/${this.$route.params.slug}/projects/`)
+                .then(res => {
+                    const { projects, label } = res.data;
+                    this.projects = projects;
+                    this.typeLabel = label;
                 })
                 .catch(err => {
                     console.error(err);
                 })
                 .then(() => {
-
+                    store.isLoading = false;
                 })
         }
     },
@@ -30,8 +36,8 @@ export default {
 </script>
 
 <template>
-    <h1>Ciao</h1>
-
+    <h1>Progetti per la tipologia : {{ typeLabel }}</h1>
+    <ProjectsList :projects="projects" />
 </template>
 
 <style></style>
