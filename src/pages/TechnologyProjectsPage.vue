@@ -4,28 +4,29 @@ import { store } from '../data/store';
 import ProjectsList from '../components/projects/ProjectsList.vue';
 const baseUri = 'http://localhost:8000/api';
 export default {
-    name: 'TypeProjectsPage',
+    name: 'TechnologyProjectsPage',
     components: { ProjectsList },
     data: () => ({
         store,
+        technologyLabel: '',
         projects: [],
-        typeLabel: '',
+
     }),
 
     methods: {
         fetchProjects() {
             store.isLoading = true;
-            axios.get(`${baseUri}/types/${this.$route.params.slug}/projects/`)
+            axios.get(`${baseUri}/technologies/${this.$route.params.slug}/projects`)
                 .then(res => {
-                    const { projects, label } = res.data;
+                    const { label, projects } = res.data;
+                    this.technologyLabel = label;
                     this.projects = projects;
-                    this.typeLabel = label;
                 })
                 .catch(err => {
                     console.error(err);
                 })
                 .then(() => {
-                    store.isLoading = false;
+                    store.isLoading = false
                 })
         }
     },
@@ -36,7 +37,7 @@ export default {
 </script>
 
 <template>
-    <h1>Progetti per la tipologia : {{ typeLabel }}</h1>
+    <h1>Progetti per la Tecnologia : {{ technologyLabel }}</h1>
     <ProjectsList :projects="projects" />
 </template>
 
