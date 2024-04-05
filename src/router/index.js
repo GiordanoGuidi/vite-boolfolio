@@ -6,6 +6,7 @@ import ProjectDetail from '../pages/ProjectDetail.vue';
 import NotFoundPage from '../pages/NotFoundPage.vue';
 import TypeProjectsPage from '../pages/TypeProjectsPage.vue';
 import TechnologyProjectsPage from '../pages/TechnologyProjectsPage.vue';
+import ContactUsPage from '../pages/ContactUsPage.vue';
 //Definisco le rotte
 const router = createRouter({
     history: createWebHistory(),
