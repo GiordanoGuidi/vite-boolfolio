@@ -44,8 +44,10 @@ export default {
 </script>
 
 <template>
-    <h1>Progetti per la Tecnologia : {{ technologyLabel }}</h1>
-    <ProjectsList :projects="projects" />
+    <div v-if="!store.isLoading">
+        <h1>Progetti per la Tecnologia : {{ technologyLabel }}</h1>
+        <ProjectsList :projects="projects" />
+    </div>
 </template>
 
 <style></style>
