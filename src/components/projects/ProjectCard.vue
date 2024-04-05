@@ -55,10 +55,13 @@ export default {
                     }}</span></RouterLink>
                     </p>
                     <div>
-                        <p v-if="project.technologies.length">Tecnologie:
-                            <span v-for="technology in project.technologies"
-                                :class="'badge rounded-pill me-2 text-bg-' + technology.color">
-                                {{ technology.label }}</span>
+                        <p v-if="project.technologies?.length">Tecnologie:
+                            <RouterLink :to="{ name: 'technology-projects-page', params: { slug: technology.slug } }"
+                                v-for="technology in project.technologies" :key="technology.id">
+                                <span :class="'badge rounded-pill me-2 text-bg-' + technology.color">
+                                    {{ technology.label }}
+                                </span>
+                            </RouterLink>
                         </p>
                     </div>
                 </div>
