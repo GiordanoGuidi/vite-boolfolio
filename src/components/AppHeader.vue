@@ -21,7 +21,7 @@ export default {
                         </RouterLink>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contattaci</a>
+                        <RouterLink class="nav-link" :to="{ name: 'contact-us-page' }">Contattaci</RouterLink>
                     </li>
                 </ul>
             </div>
