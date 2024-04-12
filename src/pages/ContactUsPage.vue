@@ -1,27 +1,28 @@
 <script>
-// import { store } from './data/store';
+import { store } from '../data/store';
 import axios from 'axios';
+//Endpoint
 const endpoint = 'http://localhost:8000/api/contact-message';
+//Variabile del form con i campi vuoti
 const emptyForm = { email: '', subject: '', message: '', }
 export default {
     name: 'ContactUsPage',
     data: () => ({
-        form: {
-            email: '',
-            subject: '',
-            message: '',
-        }
+        form: emptyForm,
     }),
     methods: {
+        //Funzione chiamata all'invio del form
         sendForm() {
+            store.isLoading = true
             axios.post(endpoint, this.form).then(() => {
-                this.form = emptyForm
+                // Svuotiamo il form
+                this.form = { ...emptyForm }
             })
                 .catch(err => {
                     console.error(err)
                 })
                 .then(() => {
-
+                    store.isLoading = false;
                 })
         }
     }
