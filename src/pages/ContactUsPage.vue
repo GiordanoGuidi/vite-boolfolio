@@ -73,22 +73,26 @@ export default {
         <!--Email-->
         <div class="mb-3">
             <label for="email" class="form-label">La tua email<sup class="text-danger">*</sup></label>
-            <input type="email" class="form-control" id="email" placeholder="name@example.com"
-                v-model.trim="form.email">
+            <input type="email" class="form-control" id="email" :class="{ 'is-invalid': errors.email }"
+                placeholder="name@example.com" v-model.trim="form.email">
+            <div v-if="errors.email" class="invalid-feedback">{{ errors.email }}</div>
             <small class="form-text text-muted">La tua mail,ti ricontatteremo a questo indirizzo</small>
         </div>
 
         <!--Oggetto-->
         <div class="mb-3">
             <label for="subject" class="form-label">Oggetto della mail<sup class="text-danger">*</sup></label>
-            <input type="text" class="form-control" id="subject" v-model.trim="form.subject" required>
+            <input type="text" :class="{ 'is-invalid': errors.subject }" class="form-control" id="subject"
+                v-model.trim="form.subject" required>
+            <div v-if="errors.subject" class="invalid-feedback">{{ errors.subject }}</div>
         </div>
 
         <!--Messaggio-->
         <div class="mb-3">
             <label for="message" class="form-label">Contenuto della mail<sup class="text-danger">*</sup></label>
-            <textarea type="text" class="form-control" id="message" cols="20" rows="10"
-                v-model.trim="form.message"></textarea>
+            <textarea type="text" class="form-control" :class="{ 'is-invalid': errors.message }" id="message" cols="20"
+                rows="10" v-model.trim="form.message"></textarea>
+            <div v-if="errors.message" class="invalid-feedback">{{ errors.message }}</div>
         </div>
 
         <div class="d-flex justify-content-center">
