@@ -13,6 +13,7 @@ export default {
         form: emptyForm,
         successMessage: null,
         errors: [],
+        isPristine: true,
     }),
     computed: {
         hasErrors() {
@@ -28,14 +29,41 @@ export default {
         }
     },
     methods: {
+
+        validateField(field) {
+            if (this.isPristine) return '';
+            return this.errors[field] ? 'is-invalid' : 'is-valid';
+        },
+
+        //Validazione del form lato FrontEnd
+        validateForm() {
+            this.errors = {};
+            this.successMessage = null;
+            //Validazione email
+            if (!this.form.email) {
+                this.errors.email = 'La mail è obbligatoria';
+            } else if (!this.form.email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                this.errors.email = 'La mail inserita non è valida';
+            }
+            //Validazione oggetto della mail
+            if (!this.form.subject) this.errors.subject = 'L/ oggetto della mail è obbligatorio';
+            //Validazione messaggio della mail
+            if (!this.form.message) this.errors.message = 'Il messaggio della mail è obbligatorio';
+
+        },
+
         //Funzione chiamata all'invio del form
         sendForm() {
-            this.successMessage = null;
-            this.errors = {};
+            this.isPristine = false;
+            //Valido il form
+            this.validateForm();
+            //Se ci sono errori interrompi
+            if (this.hasErrors) return;
             store.isLoading = true
             axios.post(endpoint, this.form).then(() => {
                 // Svuotiamo il form
                 this.form = { ...emptyForm };
+                this.isPristine = true;
                 this.successMessage = 'Il messaggio è stato inviato con successo'
             })
                 .catch(err => {
@@ -73,7 +101,7 @@ export default {
         <!--Email-->
         <div class="mb-3">
             <label for="email" class="form-label">La tua email<sup class="text-danger">*</sup></label>
-            <input type="email" class="form-control" id="email" :class="{ 'is-invalid': errors.email }"
+            <input type="email" class="form-control" id="email" :class="validateField('email')"
                 placeholder="name@example.com" v-model.trim="form.email">
             <div v-if="errors.email" class="invalid-feedback">{{ errors.email }}</div>
             <small class="form-text text-muted">La tua mail,ti ricontatteremo a questo indirizzo</small>
@@ -82,7 +110,7 @@ export default {
         <!--Oggetto-->
         <div class="mb-3">
             <label for="subject" class="form-label">Oggetto della mail<sup class="text-danger">*</sup></label>
-            <input type="text" :class="{ 'is-invalid': errors.subject }" class="form-control" id="subject"
+            <input type="text" :class="validateField('subject')" class="form-control" id="subject"
                 v-model.trim="form.subject" required>
             <div v-if="errors.subject" class="invalid-feedback">{{ errors.subject }}</div>
         </div>
@@ -90,7 +118,7 @@ export default {
         <!--Messaggio-->
         <div class="mb-3">
             <label for="message" class="form-label">Contenuto della mail<sup class="text-danger">*</sup></label>
-            <textarea type="text" class="form-control" :class="{ 'is-invalid': errors.message }" id="message" cols="20"
+            <textarea type="text" class="form-control" :class="validateField('message')" id="message" cols="20"
                 rows="10" v-model.trim="form.message"></textarea>
             <div v-if="errors.message" class="invalid-feedback">{{ errors.message }}</div>
         </div>
