@@ -30,6 +30,8 @@ export default {
     methods: {
         //Funzione chiamata all'invio del form
         sendForm() {
+            this.successMessage = null;
+            this.errors = {};
             store.isLoading = true
             axios.post(endpoint, this.form).then(() => {
                 // Svuotiamo il form
@@ -38,7 +40,15 @@ export default {
             })
                 .catch(err => {
                     console.error(err);
-                    this.errors = { network: 'Si è verificato un errore!' }
+                    //Errori validazione backend
+                    if (err.response.status === 422) {
+                        const { errors } = err.response.data
+                        this.errors = { ...errors }
+                    }
+                    //Errori di altro tipo non del form
+                    else {
+                        this.errors = { network: 'Si è verificato un errore!' }
+                    }
                 })
                 .then(() => {
                     store.isLoading = false;
@@ -52,7 +62,12 @@ export default {
     <h1>Contattaci</h1>
 
     <!-- TODO gestire alert-->
-    <FormAlert :isOpen="showAlert" :type="alertType" :dismissible="!hasErrors" />
+    <FormAlert :isOpen="showAlert" :type="alertType" :dismissible="!hasErrors">
+        <div v-if="successMessage">{{ successMessage }}</div>
+        <ul v-if="hasErrors">
+            <li v-for="(error, key) in errors" :key="key">{{ error }}</li>
+        </ul>
+    </FormAlert>
     <!--Form Contatti-->
     <form @submit.prevent="sendForm()" novalidate>
         <!--Email-->
