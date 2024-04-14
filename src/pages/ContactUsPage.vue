@@ -61,7 +61,8 @@ export default {
             if (this.hasErrors) return;
             store.isLoading = true
             axios.post(endpoint, this.form).then(() => {
-                // Svuotiamo il form
+                // Svuotiamo il form 
+                //Vedi se svuota
                 this.form = { ...emptyForm };
                 this.isPristine = true;
                 this.successMessage = 'Il messaggio è stato inviato con successo'
