@@ -30,7 +30,7 @@ export default {
     <!-- ProjectCard -->
     <div class="card my-3">
         <div class="row g-0">
-            <div class="col">
+            <div class="col-12">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title">{{ project.title }}</h5>
                     <RouterLink v-if="!isDetail" class="btn btn-primary"
@@ -40,9 +40,14 @@ export default {
                     <button v-else class="btn btn-secondary" @click="$router.back()">Torna Indietro
                     </button>
                 </div>
-                <div class="card-body">
-                    <img v-if="project.image" :src="project.image" class="float-start img-fluid" :alt="project.title">
-                    <p>{{ !isDetail ? abstract : project.content }}</p>
+                <div class="row">
+                    <div class="col-4 p-4">
+                        <img v-if="project.image" :src="project.image" class="float-start mb-3 rounded"
+                            :alt="project.title">
+                    </div>
+                    <div class="col-8 p-4">
+                        <p>{{ !isDetail ? abstract : project.content }}</p>
+                    </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     <small>{{ project.user ? project.user.name : 'Anonimo' }}</small>
@@ -51,8 +56,8 @@ export default {
                     <p v-if="project.type">Tipo:
                         <RouterLink :to="{ name: 'type-projects-page', params: { slug: project.type.slug } }"><span
                                 class="badge" :style="{ backgroundColor: project.type.color }">{{
-                        project.type.label
-                    }}</span></RouterLink>
+                                    project.type.label
+                                }}</span></RouterLink>
                     </p>
                     <div>
                         <p v-if="project.technologies?.length">Tecnologie:
@@ -70,4 +75,9 @@ export default {
     </div>
 </template>
 
-<style></style>
+<style>
+img {
+    width: 100%;
+    height: 400px;
+}
+</style>
